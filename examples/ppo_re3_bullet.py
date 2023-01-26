@@ -90,7 +90,7 @@ if __name__ == '__main__':
             times_steps, int(times_steps / (t_e - t_s)),
             np.mean(eps_rewards), np.median(eps_rewards), np.min(eps_rewards), np.max(eps_rewards)
         ))
-        mean_eps_rewards.append(list(np.max(eps_rewards)))
+        mean_eps_rewards.append(round(float(np.max(eps_rewards)),2))
     # print(args)
     # print("out:"+log_dir)
     # np.save(os.path.join(log_dir, 'episode_rewards.npy'), all_eps_rewards)
