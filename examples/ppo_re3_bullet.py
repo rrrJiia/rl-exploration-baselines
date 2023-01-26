@@ -49,7 +49,7 @@ if __name__ == '__main__':
     num_episodes = int(args.total_time_steps / args.n_steps / args.n_envs)
     # Create vectorized environments.
     envs = create_env(env_id=args.env_id, n_envs=args.n_envs, log_dir=log_dir)
-    print("in:"+log_dir)
+    # print("in:"+log_dir)
     # Create RE3 module.
     if args.exploration == 're3':
         re3 = RE3(obs_shape=envs.observation_space.shape, action_shape=envs.action_space.shape, device=device, latent_dim=128, beta=1e-2, kappa=1e-5)
@@ -61,6 +61,7 @@ if __name__ == '__main__':
 
     t_s = time.perf_counter()
     all_eps_rewards = list()
+    mean_eps_rewards = list()
     eps_rewards = deque([0.] * 10, maxlen=10)
     for i in range(num_episodes):
         model.collect_rollouts(
@@ -89,6 +90,8 @@ if __name__ == '__main__':
             times_steps, int(times_steps / (t_e - t_s)),
             np.mean(eps_rewards), np.median(eps_rewards), np.min(eps_rewards), np.max(eps_rewards)
         ))
-    print(args)
-    print("out:"+log_dir)
-    np.save(os.path.join(log_dir, 'episode_rewards.npy'), all_eps_rewards)
+        mean_eps_rewards.append(list(np.max(eps_rewards)))
+    # print(args)
+    # print("out:"+log_dir)
+    # np.save(os.path.join(log_dir, 'episode_rewards.npy'), all_eps_rewards)
+    np.save(os.path.join(log_dir, 'mean_episode_rewards.npy'), mean_eps_rewards)
