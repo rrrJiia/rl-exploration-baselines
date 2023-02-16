@@ -72,7 +72,7 @@ if __name__ == '__main__':
     model = PPO(policy='MlpPolicy', env=envs, n_steps=args.n_steps)
     # Set info buffer
     model.ep_info_buffer = deque(maxlen=10)
-    callback = BaseCallback.init_callback(model)
+    _, callback = model._setup_learn(total_timesteps=args.total_time_steps, eval_env=None)
 
     t_s = time.perf_counter()
     all_eps_rewards = list()
