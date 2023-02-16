@@ -58,7 +58,7 @@ if __name__ == '__main__':
     # Set info buffer
     model.ep_info_buffer = deque(maxlen=10)
     _, callback = model._setup_learn(total_timesteps=args.total_time_steps, eval_env=None)
-
+    print("callback:", callback)
     t_s = time.perf_counter()
     all_eps_rewards = list()
     mean_eps_rewards = list()

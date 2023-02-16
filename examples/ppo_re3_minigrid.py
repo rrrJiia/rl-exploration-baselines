@@ -86,7 +86,7 @@ if __name__ == '__main__':
             callback=callback
         )
         # Compute intrinsic rewards.
-        if args.exploration == 're3':
+        if args.exploration == 'ini':
             intrinsic_rewards = re3.compute_irs(
                 rollouts={'observations': model.rollout_buffer.observations},
                 time_steps=i * args.n_steps * args.n_envs,
